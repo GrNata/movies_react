@@ -17,14 +17,11 @@ nav {
 }
 
 .movies {
-  display: flex;
-  flex-wrap: wrap; /* Чтобы элементы переходили на следующий ряд */
-  justify-content: space-between; /* Распределяет карточки с равными отступами */
-  /* gap: 10px; Задает расстояние между карточками */
-  gap: 0px; /* Задает расстояние между карточками */
-  margin: 0 auto;
-  padding: 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
 }
+
 
 
 /* code {

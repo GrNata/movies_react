@@ -1,19 +1,29 @@
-import React from "react";
-
-export const Preloader = () => {
-    return(
-        <div className="preloader-wrapper activity">
-            <div className="spinner-layer spinner-blue">
-                <div className="circle-clipper left">
-                    <div className="circle"></div>
-                </div>
-                <div className="gap-path">
-                    <div className="circle"></div>
-                </div>
-                <div className="circle-clipper right">
-                <div className="circle"></div>
-                </div>
+function Preloader() {
+    return <div className="progress">
+                <div className="indeterminate"></div>
             </div>
-        </div>
-    );
-};
+}
+
+export {Preloader}
+
+
+
+// import React from "react";
+
+// export const Preloader = () => {
+//     return(
+//         <div classNameName="preloader-wrapper activity">
+//             <div classNameName="spinner-layer spinner-blue">
+//                 <div classNameName="circle-clipper left">
+//                     <div classNameName="circle"></div>
+//                 </div>
+//                 <div classNameName="gap-path">
+//                     <div classNameName="circle"></div>
+//                 </div>
+//                 <div classNameName="circle-clipper right">
+//                 <div classNameName="circle"></div>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// };
