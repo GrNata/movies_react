@@ -6,20 +6,28 @@ import { Search } from '../component/Search';
 
 class Main extends React.Component {
 
+    // для ввода названия фильма, если больше одного слова
+//     const title = "The Devil All the Time";
+// const encodedTitle = encodeURIComponent(title);
+// console.log(encodedTitle); // Результат: The%20Devil%20All%20the%20Time
+
     state = {
         movies: [],
         loading: false,
     }
 
     // Метод для выполнения поиска фильмов
-    searthMovies = (str) => {
-        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${str}`)
+    searthMovies = (str, type) => {
+        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${encodeURIComponent(str)}&type=${type}`)
         .then(response => response.json())
-        .then(data => this.setState({movies: data.Search, loading: false}));
+        .then(data => this.setState({
+            movies: data.Search || [],      // Убедимся, что movies всегда массив
+            loading: false
+        }));
     }
 
     componentDidMount() {
-        fetch('http://www.omdbapi.com/?apikey=7450963b&s=movie')
+        fetch('http://www.omdbapi.com/?apikey=7450963b&s=all')
         .then(response => response.json())
         .then(data => this.setState({movies: data.Search, loading: false}));   
     };
@@ -45,30 +53,5 @@ export {Main}
 
 
 
-// import React, {useState, useEffect} from "react";
-// import { Preloader} from '../component/Preloader';
-// import { Movies } from '../component/Movies'
-
-// const API_URL = 'http://www.omdbapi.com/?apikey=7450963b&s=matrix';
-
-// export const Main = () => {
-//     const [movies, setMovies] = useState([]);
-//     const [loading, setLoading] = useState(true);
-
-//     useEffect(() => {
-//         fetch(API_URL)
-//         .then(response => response.json())
-//         .then(data => {
-//             setMovies(data.Search || []);
-//             setLoading(false)
-//         });
-//     }, []);
-
-//     return (
-//         <main className="container content">
-//             {loading ? <Preloader /> : <Movies movies={movies} />}
-//         </main>
-//     );
-// };
 
 
