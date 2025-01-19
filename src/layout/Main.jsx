@@ -11,30 +11,32 @@ class Main extends React.Component {
         loading: false,
     }
 
-    searthMovies = (searth = 'matrix') => {
-        this.setState({loading: true});
-
-        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${searth}`)
+    // Метод для выполнения поиска фильмов
+    searthMovies = (str) => {
+        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${str}`)
         .then(response => response.json())
-        .then(data => this.setState({movies: data.Search, loading: false}))
+        .then(data => this.setState({movies: data.Search, loading: false}));
     }
 
     componentDidMount() {
-        this.searthMovies();    
+        fetch('http://www.omdbapi.com/?apikey=7450963b&s=movie')
+        .then(response => response.json())
+        .then(data => this.setState({movies: data.Search, loading: false}));   
     };
 
     render() {
             const {movies, loading} = this.state;
 
             return <main className="conteiner content" >
-                <Search searthMovies={this.searthMovies } />
-                {
-                    loading ? (
-                        <Preloader />
-                    ) : (
-                        <Movies movies={movies} />
-                    )
-                }               
+                {/* Передаём функцию searchMovies() в компонент Search через props */}
+                        <Search searthMovies={this.searthMovies } />   
+                        {
+                            loading ? (
+                                <Preloader />
+                            ) : (
+                                <Movies movies={movies} />
+                            )
+                        }               
                     </main>
     }
 }

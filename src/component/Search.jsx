@@ -13,11 +13,11 @@ class Search extends React.Component {
         }
     };
 
-    
-    // Метод для отправки формы
-    handleSubmit = () => {
-        this.props.searthMovies(this.state.search);
-    };
+
+    // // Метод для отправки формы
+    // handleSubmit = () => {
+    //     this.props.searthMovies(this.state.search);
+    // };
 
     render() {
         return <div className="row">
@@ -31,8 +31,8 @@ class Search extends React.Component {
                             onKeyDown={this.handleKey}  // Обработка нажатия Enter
                         />
                         <button 
-                            className="btn"
-                            onClick={this.handleSubmit}     //  Обработка клика по кнопке
+                            className="btn blue-grey search-btn"
+                            onClick={() => this.props.searthMovies(this.state.search)}     //  Обработка клика по кнопке
                         >
                             Searth
                         </button>
