@@ -1,29 +1,38 @@
 import React from "react";
 import { Movies } from '../component/Movies';
 import { Preloader } from '../component/Preloader';
+import { Search } from '../component/Search';
 
 
 class Main extends React.Component {
 
     state = {
         movies: [],
+        loading: false,
+    }
+
+    searthMovies = (searth = 'matrix') => {
+        this.setState({loading: true});
+
+        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${searth}`)
+        .then(response => response.json())
+        .then(data => this.setState({movies: data.Search, loading: false}))
     }
 
     componentDidMount() {
-        fetch('http://www.omdbapi.com/?apikey=7450963b&s=matrix')
-        .then(response => response.json())
-        .then(data => this.setState({movies: data.Search}))
+        this.searthMovies();    
     };
 
     render() {
-            const {movies} = this.state;
+            const {movies, loading} = this.state;
 
             return <main className="conteiner content" >
+                <Search searthMovies={this.searthMovies } />
                 {
-                    movies.length ? (
-                        <Movies movies={this.state.movies} />
-                    ) : (
+                    loading ? (
                         <Preloader />
+                    ) : (
+                        <Movies movies={movies} />
                     )
                 }               
                     </main>

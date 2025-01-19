@@ -18,9 +18,12 @@ nav {
 
 .movies {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
   gap: 1rem;
 }
+
+/* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+  кол-во card в строке в зависимости от ширрины окна (экрана) */
 
 
 
