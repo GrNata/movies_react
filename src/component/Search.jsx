@@ -13,6 +13,7 @@ class Search extends React.Component {
         }
     };
 
+    
     // Метод для отправки формы
     handleSubmit = () => {
         this.props.searthMovies(this.state.search);
