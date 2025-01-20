@@ -16,7 +16,7 @@ class Main extends React.Component {
     // Метод для выполнения поиска фильмов
     searthMovies = (str, type = 'all') => {
         this.setState({loading: true});
-        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=${
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${
             str === '' ?
             'movie' 
             :
@@ -31,7 +31,7 @@ class Main extends React.Component {
     }
 
     componentDidMount() {
-        fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&s=movie`)
+        fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=movie`)
         .then(response => response.json())
         .then(data => this.setState({movies: data.Search, loading: false}));   
     };
