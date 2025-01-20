@@ -14,30 +14,54 @@ class Main extends React.Component {
     state = {
         movies: [],
         loading: false,
+        totalPage: 1,
     }
 
     // Метод для выполнения поиска фильмов
-    searthMovies = (str, type) => {
-        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${encodeURIComponent(str)}&type=${type}`)
+    searthMovies = (str, type, page) => {
+        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${encodeURIComponent(str)}&type=${type}&page=${page}`)
         .then(response => response.json())
-        .then(data => this.setState({
-            movies: data.Search || [],      // Убедимся, что movies всегда массив
-            loading: false
-        }));
+        .then(data => {
+            const totalResult = (data.totalResults && !isNaN(parseInt(data.totalResults, 10)))
+                     ? ( Math.ceil(parseInt(data.totalResults, 10) / 10) )
+                     : 1;
+            this.setState({
+                movies: data.Search || [],      // Убедимся, что movies всегда массив
+                loading: false,
+                totalPage: totalResult,
+
+        });
+    });
+        // alert('total (State) = ' + this.state.totalPage + ', total = ' + this.totalPage + ', page = ' + page);
+        alert(`http://www.omdbapi.com/?apikey=7450963b&s=${encodeURIComponent(str)}&type=${type}&page=${page}`);
     }
 
     componentDidMount() {
         fetch('http://www.omdbapi.com/?apikey=7450963b&s=all')
         .then(response => response.json())
-        .then(data => this.setState({movies: data.Search, loading: false}));   
-    };
+        .then(data => {
+            const totalPage = Math.ceil(parseInt(data.totalResults, 10) / 10);
+            this.setState({
+                movies: data.Search || [], 
+                loading: false,
+                totalPage,
+            });
+        // alert('totalPage = ' + totalPage); 
+    });   
+        
+    }
+
 
     render() {
             const {movies, loading} = this.state;
 
             return <main className="conteiner content" >
-                {/* Передаём функцию searchMovies() в компонент Search через props */}
-                        <Search searthMovies={this.searthMovies } />   
+                {/* Передаём функцию searchMovies() и totalPage в компонент Search через props */}
+                        <Search 
+                            searthMovies={this.searthMovies } 
+                            totalPage={this.state.totalPage} > 0 ? {this.state.totalPage} : 1;
+                        </Search>
+                        
                         {
                             loading ? (
                                 <Preloader />

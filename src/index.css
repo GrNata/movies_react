@@ -28,6 +28,24 @@ nav {
   right: 0.5rem;
 }
 
+.controls-container {
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.radio {
+  display: flex;
+  gap: 10px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
   кол-во card в строке в зависимости от ширрины окна (экрана) */
 
