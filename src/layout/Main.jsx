@@ -8,11 +8,12 @@ class Main extends React.Component {
 
     state = {
         movies: [],
-        loading: false,
+        loading: true,
     }
 
     // Метод для выполнения поиска фильмов
     searthMovies = (str, type = 'all') => {
+        this.setState({loading: true});
         fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${
             str === '' ?
             'movie' 
