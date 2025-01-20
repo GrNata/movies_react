@@ -1,0 +1,6 @@
+{
+    "prettier.enableDebugLogs": true,
+    "prettier.prettierPath": "",
+    "prettier.singleQuote": false,
+    "prettier.tabWidth": 4
+}
