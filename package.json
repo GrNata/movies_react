@@ -2,7 +2,7 @@
   "name": "movies_react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Gr.Nata.github.io/movies_react",
+  "homepage": "https://GrNata.github.io/movies_react",
   "dependencies": {
     "cra-template": "1.2.0",
     "react": "^18.2.0",
