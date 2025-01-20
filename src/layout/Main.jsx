@@ -12,8 +12,17 @@ class Main extends React.Component {
     }
 
     // Метод для выполнения поиска фильмов
-    searthMovies = (str) => {
-        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${str}`)
+    searthMovies = (str, type = 'all') => {
+        fetch(`http://www.omdbapi.com/?apikey=7450963b&s=${
+            str === '' ?
+            'movie' 
+            :
+            str
+            }${
+            type !== 'all' ? 
+            `&type=${type}` 
+            : 
+            ''}`)
         .then(response => response.json())
         .then(data => this.setState({movies: data.Search, loading: false}));
     }
