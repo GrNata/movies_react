@@ -1,40 +1,41 @@
-import React from "react";
+import React, {useState}  from "react";
 
-class Search extends React.Component {
-    state = {
-        search: "",
-        type: "all",
-        page: 1,
-    };
+// const Search = ({searthMovies}) => { //      если бы была одна ф-ция
+const Search = (props) => {
 
-    // Метод для обработки нажатия Enter или отправки формы
-    handleKey = (event) => {
+    const {
+        searthMovies = Function.prototype,   //  значение по умолчанию (это ф-ция - ничего не делает)
+        totalPage = 1,      // значение по умолчанию
+    } = props;
+
+    const [search, setSearch] = useState('');
+    const [type, setType] = useState('all');
+    const [page, setPage] = useState(1);
+
+    // Ф-ция для обработки нажатия Enter или отправки формы
+    const handleKey = (event) => {
         if (event.key === "Enter") {
-            this.setState({page: 1});
-            this.props.searthMovies(this.state.search, this.state.type, 1);
+            setPage(1);
+            searthMovies(search, type, 1);
         }
     };
 
-    //  Метод для обработки изменения радио-кнопки
-    handleFilter = (event) => {
-        this.setState(() => ({ 
-            type: event.target.dataset.type,
-            page: 1 }), 
-            () => {
-            this.props.searthMovies(this.state.search, this.state.type, 1);
-            });
+    //  Ф-ция для обработки изменения радио-кнопки
+    const handleFilter = (event) => {
+        setType(event.target.dataset.type);
+        setPage(1);
+        searthMovies(search, event.target.dataset.type, 1);
     };
 
-    //  Метод для обработки переключения страниц
-    handlePageChange (newPage) {
-        if (this.state.search === '') {
-            this.setState({search: 'all'});
+    //  Ф-ция для обработки переключения страниц
+    const handlePageChange = (newPage) => {
+        if (search === '') {
+            setSearch('all');
         }
-        this.setState({page: newPage});
-        this.props.searthMovies(this.state.search, this.state.type, newPage);
-    }
+        setPage(newPage);
+        searthMovies('all', type, newPage);
+    };
 
-    render() {
         return (
             <div classNameName="row">
                 <div classNameName="input-field">
@@ -42,16 +43,16 @@ class Search extends React.Component {
                         placeholder="search"
                         type="search"
                         classNameName="validate"
-                        value={this.state.search}
+                        value={search}
                         onChange={(e) =>
-                            this.setState({ search: e.target.value })
+                            setSearch(e.target.value)
                         }
-                        onKeyDown={this.handleKey} // Обработка нажатия Enter
+                        onKeyDown={handleKey} // Обработка нажатия Enter
                     />
                     <button
                         classNameName="btn blue-grey search-btn"
                         onClick={() =>
-                            this.props.searthMovies(this.state.search, this.state.type, 1)
+                            searthMovies(search, type, 1)
                         } //  Обработка клика по кнопке
                     >
                         Searth
@@ -65,9 +66,9 @@ class Search extends React.Component {
                                 className="with-gap"
                                 name="type"
                                 type="radio"
-                                checked={this.state.type === 'all'}
+                                checked={type === 'all'}
                                 data-type="all"
-                                onChange={this.handleFilter}
+                                onChange={handleFilter}
                             />
                             <span>All</span>
                         </label>
@@ -76,9 +77,9 @@ class Search extends React.Component {
                                 className="with-gap"
                                 name="type"
                                 type="radio"
-                                checked={this.state.type === 'movie'}
+                                checked={type === 'movie'}
                                 data-type="movie"
-                                onChange={this.handleFilter}
+                                onChange={handleFilter}
                             />
                             <span>Movies only</span>
                         </label>
@@ -87,9 +88,9 @@ class Search extends React.Component {
                                 className="with-gap"
                                 name="type"
                                 type="radio"
-                                checked={this.state.type === 'series'}
+                                checked={type === 'series'}
                                 data-type="series"
-                                onChange={this.handleFilter}
+                                onChange={handleFilter}
                             />
                             <span>Series only</span>
                         </label>
@@ -98,9 +99,9 @@ class Search extends React.Component {
                                 className="with-gap"
                                 name="type"
                                 type="radio"
-                                checked={this.state.type === 'game'}
+                                checked={type === 'game'}
                                 data-type="game"
-                                onChange={this.handleFilter}
+                                onChange={handleFilter}
                             />
                             <span>Games only</span>
                         </label>
@@ -110,16 +111,16 @@ class Search extends React.Component {
                     <div className="pagination">
                         <button
                             className="btn  blue-grey darken-1"
-                            disabled={this.state.page <= 1}
-                            onClick={() => this.handlePageChange(this.state.page - 1)}
+                            disabled={page <= 1}
+                            onClick={() => handlePageChange(page - 1)}
                         >
                             Previpos
                         </button>
-                        <span>    {this.state.page} of {this.props.totalPage}</span>
+                        <span>    {page} of {totalPage}</span>
                         <button
                             className="btn  blue-grey darken-1"
-                            disabled={this.state.page >= this.props.totalPage}
-                            onClick={() => this.handlePageChange(this.state.page + 1)}
+                            disabled={page >= totalPage}
+                            onClick={() => handlePageChange(page + 1)}
                         >
                             Next
                         </button>
@@ -128,6 +129,5 @@ class Search extends React.Component {
             </div>
         );
     }
-}
 
 export { Search };
